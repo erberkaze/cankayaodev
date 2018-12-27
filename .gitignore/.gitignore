@@ -1,0 +1,97 @@
+#include <stdio.h>
+#include <math.h>
+#include <conio.h>
+int main(void)
+{	
+	int zar1,zar2,ct=1,i,j,SUM1,SUM2;
+	double sum=0,sum2=0;
+	char basla;
+	printf("*********************");
+	printf("Welcome to Dice Game");
+	printf("*********************");
+	printf("Input P to play the game, S to display the total score, Q to Quit:Q");
+	scanf(" %c",&basla);
+	while((basla == 'P' || basla == 'S') && (basla != 'Q'))
+	{
+		if (basla == 'P')
+			{
+				for(i=1;i<=2;i++)//hocam normalde kulalnmayacaktım fakat sonra aklıma geldi aynı işlemleri player 2 için de yapacağız dedim 
+								// bunu bi for döngüsüne alıp sonuç yazma kısmında da ikidebir if ile check edersek daha iyi olur galiba ondan dolayı burada for kullandım.
+				{
+					zar1=srand(time(NULL))%6;
+                	zar2=rand(time(NULL))%6;		
+					if ((zar1==3 && zar2 == 3) || (zar1==6 && zar2==6) )//Eğer 3,3 ya da 6,6 gelirse durumları için 
+                	{
+                		for (j=1;j<=3;j++)
+                		{
+                			zar1=srand(time(NULL))%6;
+                			zar2=srand(time(NULL))%6;
+                			if ((zar1 != zar2) && i==1)// Başta da yazdığım gibi belki daha hızlı bir program olur düşüncesi ile yaptım
+                			{
+                				sum+=((zar1+zar2)/2.0);
+                				SUM+=(zar1+zar2);
+							}
+							else if((zar1!= zar2) && i==2)
+							{
+								sum2+=((zar1+zar2)/2.0);
+								SUM2+=(zar1+zar2);
+							}			
+						}
+                		
+                	else if(abs(zar1-zar2)>2)//herhangi bir player için 1. veya 2. zar değerinin diğer zar değeri ile arasındaki farkın 4 
+                							// olduğu durumlar için (not : bu else if'in altındaki kod fark 4 den küçük için
+                 		{
+                 			if (i==1)
+                			{
+                				sum+=((zar1+zar2)/2.0);
+                				SUM+=(zar1+zar2);
+							}
+							else if(i==2)
+							{
+								sum2+=((zar1+zar2)/2.0);
+								SUM2+=(zar1+zar2);
+							}	
+						}		
+                	else	// eğer aralarındaki fark 4 ise işte buradaki kod onun için
+						{
+							while(zar1+zar2 < = 8 )
+				 			{
+                 				zar1=srand(time(NULL))%6;
+                 				zar2=srand(time(NULL))%6;			 
+							}
+							if (i==1)
+                			{
+                				sum+=((zar1+zar2)/2.0);
+                				SUM+=(zar1+zar2);	
+							}	
+							else if(i==2)
+							{
+								sum2+=((zar1+zar2)/2.0);
+								SUM2+=(zar1+zar2);
+							}			
+						}
+				
+					}
+                
+				}
+			if(SUM1/SUM2==2)//oyun bitmiş mi diye kontrol etmek için eğer 2 kat gelirse direk oyun bitiriyor else ise zaten devam edicek
+							// bu yüzden hiç else eklemedim
+				printf("Player 1 : %d points\nPlayer 2 : %d points\nTotal of %d throws are performed.",int(sum),int(sum2),ct);
+			if(sum>sum2)// winneri belirlemek için
+				printf("Winner is : Player 1");
+			else
+				printf("Winner is : Player 2");
+            }
+        else if(basla == 'S')//Eğer user printf scanf den sonra p yerine s input ederse diye
+        	{
+				printf("Total score of Player 1 : %d \nTotal score of Player 2 : %d",int(sum),int(sum2));
+			}
+		printf("Input P to play the game, S to display the total score, Q to Quit:Q");
+		scanf(" %c",&basla);
+    	ct++;
+	}
+	printf("Bye");//User en son olarak Q input etmiş demek oluyor bu ve while döngüsüne giremediği için çıkmış
+}
+	
+
+kaze/cankayaodev.git
